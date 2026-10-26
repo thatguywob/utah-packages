@@ -417,3 +417,8 @@ runtime acceptance, which stays tracked on the issue.
 When rebasing a recipe PR, resolve conflicts in this generated report by rerunning
 `python3 tools/factory_build_backlog.py` against the combined inventory, then
 verify with `--check`; choosing either side can discard another import’s state.
+
+If a rebased reconciliation finds its catalog dispositions already on the base,
+keep those existing records and regenerate the report from the base inventory.
+Retain only distinct procedural guidance from the PR; do not restore its older
+snapshot or duplicate closing records.
