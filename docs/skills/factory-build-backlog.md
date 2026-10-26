@@ -417,3 +417,8 @@ runtime acceptance, which stays tracked on the issue.
 When rebasing a recipe PR, resolve conflicts in this generated report by rerunning
 `python3 tools/factory_build_backlog.py` against the combined inventory, then
 verify with `--check`; choosing either side can discard another import’s state.
+
+When rebasing concurrent recipe imports, compare the package files and source
+lock with the current base first: the source family may already have landed
+through another PR. Preserve that inventory and regenerate Packit, architecture
+counts, and the backlog report instead of reapplying stale generated totals.
