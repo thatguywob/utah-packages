@@ -381,7 +381,7 @@ When concurrent disposition PRs conflict during rebase, retain each distinct
 `[resolved]` and `[wontfix]` record in the catalog, then regenerate the report
 with `python3 tools/factory_build_backlog.py`. Do not choose one side of the
 generated JSON: it must reflect both sets of catalog changes. Verify the result
-with `python3 tools/factory_build_backlog.py --check` before continuing the rebase.
+with `python3 tools/factory_build_backlog.py --check` before continuing the rebase. Confirm that the final catalog diff against the new base still contains each intended disposition; a clean report alone does not prove that the PR’s moves survived.
 
 ### Reconciling published batches
 
