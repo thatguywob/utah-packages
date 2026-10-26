@@ -343,6 +343,8 @@ locking the release tarballs from `libbsd.freedesktop.org`.
   If the catalog conflict is two independent additions to `[resolved]`, keep
   both sets of records; neither supersedes the other. Preserve unrelated skill
   sections added on `main` when the reconciliation guidance conflicts too.
+  If `main` already carries a proposed disposition, keep its existing record
+  once; do not re-add the name to an area or duplicate its closing entry.
 - A `pending` count that grows means a name was added to the catalog
   without a recipe; re-run `tools/factory_build_backlog.py` and inspect
   `reports/factory-build-backlog.json`.
