@@ -330,6 +330,18 @@ Both recipes carry detached signatures in `sources` and a checked-in signing
 key. Preserve their `%{gpgverify}` checks and SHA-512 signature pins when
 locking the release tarballs from `libbsd.freedesktop.org`.
 
+### Password-quality source family
+
+`passwdqc` is the source recipe for `passwdqc`, `passwdqc-utils`, and
+`pam_passwdqc`; do not import the PAM module or utilities separately.
+The same build supplies `libpasswdqc`, which both payload subpackages require
+at the exact same version and release. Its upstream tarball and detached
+signature are separate SHA-512 entries in `sources`; verify both against
+Openwall, while the primary source lock identifies the tarball. Carrying this
+recipe does not enable the module in the consumer's PAM configuration.
+A runtime check should exercise `pwqcheck` with weak and strong input without
+changing a system password, then inspect the module payload separately.
+
 ## Diagnosing drift
 
 - `--check` compares the whole live report with the committed snapshot —
@@ -417,3 +429,9 @@ runtime acceptance, which stays tracked on the issue.
 When rebasing a recipe PR, resolve conflicts in this generated report by rerunning
 `python3 tools/factory_build_backlog.py` against the combined inventory, then
 verify with `--check`; choosing either side can discard another import’s state.
+
+Before rebasing a returned recipe PR, check whether the base already adopted
+its import through another PR. Compare the recipe, source lock and resolved
+records with the base; retain matching imported content and PR references
+rather than duplicating them or restoring old inventory counts. Regenerate
+derived files from the current combined inventory.
