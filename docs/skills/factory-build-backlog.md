@@ -375,13 +375,14 @@ locking the release tarballs from `libbsd.freedesktop.org`.
 After a recipe PR lands, regenerate `reports/factory-build-backlog.json`; the inventory-driven gate deliberately rejects a snapshot made before that import. Refresh it together with recipe and Packit inventory changes when preparing concurrent PRs. If a rebase conflicts in this generated report, resolve the catalog and recipe inputs first, then run `python3 tools/factory_build_backlog.py`; choosing either report wholesale can discard the other branch’s backlog updates.
 
 After combining recipe inventories during a rebase, also rerun `python3 tools/render_packit_config.py --write` and `python3 tools/render_architecture_counts.py --write` before `just check` to reconcile derived package lists and counts.
-After a recipe PR lands, regenerate `reports/factory-build-backlog.json`; the inventory-driven gate deliberately rejects a snapshot made before that import. Refresh it together with recipe and Packit inventory changes when preparing concurrent PRs.
 
 When concurrent disposition PRs conflict during rebase, retain each distinct
 `[resolved]` and `[wontfix]` record in the catalog, then regenerate the report
 with `python3 tools/factory_build_backlog.py`. Do not choose one side of the
 generated JSON: it must reflect both sets of catalog changes. Verify the result
 with `python3 tools/factory_build_backlog.py --check` before continuing the rebase.
+If a disposition is already on the base branch, retain its publication evidence
+and build-health notes there; the rebased PR need not repeat that change.
 
 ### Reconciling published batches
 
